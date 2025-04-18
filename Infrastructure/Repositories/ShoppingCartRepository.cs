@@ -17,19 +17,19 @@ namespace Bookstore.Infrastructure.Repositories
         public async Task<ShoppingCartItem?> GetCartItemsByIdAsync(int id)
         {
             return await _context.ShoppingCartItems.Include(c => c.Book)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
         }
 
         public async Task<ShoppingCartItem?> GetCartItemsByUserAndUserIdAsync(string userId, int bookId)
         {
             return await _context.ShoppingCartItems.Include(c => c.Book)
-                .FirstOrDefaultAsync(c => c.UserId == userId && c.BookId == bookId);
+                .FirstOrDefaultAsync(c => c.UserId == userId && c.BookId == bookId && !c.IsDeleted);
         }
 
         public async Task<IEnumerable<ShoppingCartItem>> GetCartItemsByUserAsync(string userId)
         {
             return await _context.ShoppingCartItems.Include(c => c.Book)
-                                .Where(c => c.UserId == userId)
+                                .Where(c => c.UserId == userId && !c.IsDeleted)
                                 .ToListAsync();
         }
 

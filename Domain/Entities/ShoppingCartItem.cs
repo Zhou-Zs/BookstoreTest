@@ -10,6 +10,10 @@ namespace Bookstore.Domain.Entities
         public Book? Book { get; private set; }
 
         private ShoppingCartItem() { }
+        public bool IsDeleted { get; private set; }
+        public DateTime Created { get; private set; }
+        public DateTime? DeletedTime { get; private set; }
+        public DateTime? UpdateTime { get; private set; }
 
         public ShoppingCartItem(string userId, int bookId, int quantity)
         {
@@ -25,6 +29,8 @@ namespace Bookstore.Domain.Entities
             UserId = userId;
             BookId = bookId;
             Quantity = quantity;
+            IsDeleted = false;
+            Created = DateTime.UtcNow;
         }
 
         public void AddQuantity(int quantity)
@@ -34,6 +40,7 @@ namespace Bookstore.Domain.Entities
                 throw new ArgumentException("增加数量要大于0", nameof(quantity));
             }
             Quantity += quantity;
+            UpdateTime = DateTime.UtcNow;
         }
 
         public decimal GetSubTotal()
@@ -43,6 +50,16 @@ namespace Bookstore.Domain.Entities
                 return 0;
             }
             return Book.Price * Quantity;
+        }
+
+        public void Delete()
+        {
+            if (IsDeleted)
+            {
+                throw new InvalidOperationException("当购物车已删除");
+            }
+            IsDeleted = true;
+            DeletedTime = DateTime.Now;
         }
     }
 }

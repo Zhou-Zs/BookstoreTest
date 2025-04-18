@@ -29,6 +29,7 @@ namespace Bookstore.API
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             builder.Services.AddScoped<ShoppingCartService>();
+            builder.Services.AddScoped<BookService>();
 
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(CustomProfile));

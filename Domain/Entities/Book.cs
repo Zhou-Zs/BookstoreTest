@@ -9,8 +9,11 @@ namespace Bookstore.Domain.Entities
         public string Author { get; private set; }
         public decimal Price { get; private set; }
         public string Category { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime Created { get; private set; }
+        public DateTime? DeletedTime { get; private set; }
 
-        private Book() { }
+    private Book() { }
 
         public Book(string title, string author, decimal price, string category)
         {
@@ -22,6 +25,18 @@ namespace Bookstore.Domain.Entities
             Author = author;
             Price = price;
             Category = category;
+            IsDeleted= false;
+            Created = DateTime.Now;
+        }
+
+        public void Delete()
+        {
+            if (IsDeleted)
+            {
+                throw new InvalidOperationException("当前书籍已删除");
+            }
+            IsDeleted = true;
+            DeletedTime = DateTime.Now;
         }
     }
 }

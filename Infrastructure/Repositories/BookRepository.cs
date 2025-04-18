@@ -17,13 +17,19 @@ namespace Bookstore.Infrastructure.Repositories
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books.Where(c=> !c.IsDeleted).ToListAsync();
         }
 
         public async Task<Book?> GetBookByIdAsync(int id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _context.Books.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
         }
+
+        public async Task<Book?> GetBookByTitleAsync(string title)
+        {
+            return await _context.Books.FirstOrDefaultAsync(c => c.Title == title && !c.IsDeleted);
+        }
+
         public async Task UpdateBookAsync(Book book)
         {
             _context.Books.Update(book);

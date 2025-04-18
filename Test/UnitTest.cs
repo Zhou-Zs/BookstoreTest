@@ -15,6 +15,7 @@ namespace Test
             private readonly IBookRepository _bookRepository;
             private readonly IShoppingCartRepository _cartRepository;
             private readonly ShoppingCartService _shoppingCartService;
+            private readonly BookService _bookService;
 
             public BookstoreUnitTest()
             {
@@ -24,6 +25,7 @@ namespace Test
                 _context = new BookstoreDdContext(options);
 
                 _bookRepository = new BookRepository(_context);
+                _bookService = new BookService(_bookRepository);
                 _cartRepository = new ShoppingCartRepository(_context);
                 _shoppingCartService = new ShoppingCartService(_cartRepository, _bookRepository);
             }
@@ -33,7 +35,7 @@ namespace Test
             {
                 var book = new Book("大话西游", "张三", 30m, "玄幻");
 
-                var addBook = await _bookRepository.AddBookAsync(book);
+                var addBook = await _bookService.CreateBookAsync(book);
 
                 Assert.NotNull(addBook);
                 Assert.True(addBook.Id > 0);
@@ -53,8 +55,8 @@ namespace Test
                 var book1 = new Book("如来神掌", "如来", 33m, "神话");
                 var book2 = new Book("如来神掌1", "如来1", 22m, "神话4");
 
-                await _bookRepository.AddBookAsync(book1);
-                await _bookRepository.AddBookAsync(book2);
+                await _bookService.CreateBookAsync(book1);
+                await _bookService.CreateBookAsync(book2);
 
                 var books = await _bookRepository.GetAllBooksAsync();
 

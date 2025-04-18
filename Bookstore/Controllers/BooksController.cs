@@ -5,7 +5,8 @@ using AutoMapper;
 using Bookstore.Application;
 using FluentValidation;
 using Bookstore.Application.DTO;
-using Bookstore.Domain.Entities;        
+using Bookstore.Domain.Entities;
+using Domain.Services;
 
 namespace Bookstore.API.Controllers
 {
@@ -14,9 +15,10 @@ namespace Bookstore.API.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class BooksController(IBookRepository bookRepository, IMapper mapper, IValidator<CreateBookDto> createBookValidator) : ControllerBase
+    public class BooksController(IBookRepository bookRepository, BookService bookService ,IMapper mapper, IValidator<CreateBookDto> createBookValidator) : ControllerBase
     {
         private readonly IBookRepository _bookRepository = bookRepository;
+        private readonly BookService _bookService = bookService;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<CreateBookDto> _createBookValidator = createBookValidator;
 
@@ -35,7 +37,7 @@ namespace Bookstore.API.Controllers
                 return BadRequest(result.Errors);
             }
             var book = _mapper.Map<Book>(createDto);
-            var createdBook = await _bookRepository.AddBookAsync(book);
+            var createdBook = await _bookService.CreateBookAsync(book);
             var bookDto = _mapper.Map<BookDto>(createdBook);
             return CreatedAtAction(nameof(GetBook), new { id = bookDto.Id }, bookDto); 
         }
