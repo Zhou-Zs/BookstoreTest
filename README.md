@@ -3,9 +3,12 @@
 
 项目结构
 
-Bookstore.Api					  API层
+Bookstore.Api				  API层
+
 Bookstore.Application      应用服务层  (dto, AutoMapper配置，FluentValidation配置)
+
 Bookstore.Domain           领域模型层（实体（充血模型）,领域业务）
+
 Bookstore.Infrastructure  基础设施层 （仓储实现，身份验证和数据库配置）
 
 
