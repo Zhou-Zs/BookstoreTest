@@ -1,0 +1,18 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/Bookstore/bin/Debug/net8.0
+/Bookstore/obj/Debug/net8.0
+/Domain/obj/Debug/net8.0
+/Infrastructure/bin/Debug/net8.0
+/Infrastructure/obj/Debug/net8.0
+/Test/bin/Debug/net8.0
+/Infrastructure/obj
+/Test/obj
+/Domain/obj
+/Domain/bin/Debug/net8.0
+/Bookstore/obj
+/Application/obj
+/Application/bin/Debug/net8.0
+/.vs
