@@ -26,7 +26,7 @@ namespace Bookstore.Domain.Entities
             Price = price;
             Category = category;
             IsDeleted= false;
-            Created = DateTime.Now;
+            Created = DateTime.UtcNow;
         }
 
         public void Delete()
@@ -36,7 +36,7 @@ namespace Bookstore.Domain.Entities
                 throw new InvalidOperationException("当前书籍已删除");
             }
             IsDeleted = true;
-            DeletedTime = DateTime.Now;
+            DeletedTime = DateTime.UtcNow;
         }
     }
 }

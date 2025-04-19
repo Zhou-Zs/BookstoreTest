@@ -8,12 +8,12 @@ namespace Bookstore.Domain.Entities
         public int BookId { get; private set; }
         public int Quantity { get; private set; }
         public Book? Book { get; private set; }
-
-        private ShoppingCartItem() { }
         public bool IsDeleted { get; private set; }
         public DateTime Created { get; private set; }
         public DateTime? DeletedTime { get; private set; }
         public DateTime? UpdateTime { get; private set; }
+
+        private ShoppingCartItem() { }
 
         public ShoppingCartItem(string userId, int bookId, int quantity)
         {
@@ -59,7 +59,7 @@ namespace Bookstore.Domain.Entities
                 throw new InvalidOperationException("当购物车已删除");
             }
             IsDeleted = true;
-            DeletedTime = DateTime.Now;
+            DeletedTime = DateTime.UtcNow;
         }
     }
 }
