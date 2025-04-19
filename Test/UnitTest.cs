@@ -19,11 +19,9 @@ namespace Test
 
             public BookstoreUnitTest()
             {
-                var options = new DbContextOptionsBuilder<BookstoreDdContext>()
-                    .UseInMemoryDatabase("testDB")
-                    .Options;
-                _context = new BookstoreDdContext(options);
+                var options = new DbContextOptionsBuilder<BookstoreDdContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
 
+                _context = new BookstoreDdContext(options);
                 _bookRepository = new BookRepository(_context);
                 _bookService = new BookService(_bookRepository);
                 _cartRepository = new ShoppingCartRepository(_context);
