@@ -12,7 +12,7 @@ namespace Bookstore.Domain.IRepositories
         Task<Book> AddBookAsync(Book book);
 
         /// <summary>
-        /// 更具图书ID获取图书
+        /// 根据图书ID获取图书
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
