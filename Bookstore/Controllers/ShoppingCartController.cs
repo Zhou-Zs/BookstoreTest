@@ -7,6 +7,7 @@ using Bookstore.Domain.IRepositories;
 using AutoMapper;
 using Domain.Services;
 using Bookstore.Application.DTO;
+using Bookstore.API.Extensions;
 
 namespace Bookstore.API.Controllers
 {
@@ -36,7 +37,7 @@ namespace Bookstore.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddToCart(int bookId, int Quantity)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = HttpContext.GetUserId();
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();
@@ -56,7 +57,7 @@ namespace Bookstore.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCart()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = HttpContext.GetUserId();
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();
@@ -73,7 +74,7 @@ namespace Bookstore.API.Controllers
         [HttpGet("settlement")]
         public async Task<IActionResult> Settlement()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = HttpContext.GetUserId();
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();

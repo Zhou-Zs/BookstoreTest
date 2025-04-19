@@ -11,6 +11,7 @@ using Bookstore.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Bookstore.Application.DTO;
+using Bookstore.API.Middleware;
 
 namespace Bookstore.API
 {
@@ -58,6 +59,7 @@ namespace Bookstore.API
 
             app.UseAuthorization();
 
+            app.UseMiddleware<UserIdMiddleware>();
 
             app.MapControllers();
 

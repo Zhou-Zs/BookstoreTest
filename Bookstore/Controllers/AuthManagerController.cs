@@ -33,7 +33,7 @@ namespace Bookstore.API.Controllers
                 return BadRequest(result.Errors);
             }
 
-            return Ok("登录成功");
+            return Ok("注册成功");
         }
 
         /// <summary>
